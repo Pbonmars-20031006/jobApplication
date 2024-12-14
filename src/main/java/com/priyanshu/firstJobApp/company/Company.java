@@ -1,9 +1,7 @@
 package com.priyanshu.firstJobApp.company;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.priyanshu.firstJobApp.job.Job;
+import jakarta.persistence.*;
 
 import java.util.List;
 @Entity
@@ -14,22 +12,18 @@ public class Company {
     private String name;
     private String location;
     private String description;
-    private List<String> jobs;
 
-    public Company(String name, Long id, String location, String description, List<String> jobs) {
+    @OneToMany(mappedBy = "company")
+    private List<Job> jobs;
+
+
+
+
+    public Company(String name, Long id, String location, String description, List<Job> jobs) {
         this.name = name;
         this.id = id;
         this.location = location;
         this.description = description;
-        this.jobs = jobs;
-    }
-
-
-    public List<String> getJobs() {
-        return jobs;
-    }
-
-    public void setJobs(List<String> jobs) {
         this.jobs = jobs;
     }
 
@@ -56,6 +50,14 @@ public class Company {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 
     public void setId(Long id) {

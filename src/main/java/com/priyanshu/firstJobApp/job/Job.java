@@ -1,5 +1,7 @@
 package com.priyanshu.firstJobApp.job;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.priyanshu.firstJobApp.company.Company;
 import jakarta.persistence.*;
 
 @Entity // objects in database
@@ -16,7 +18,18 @@ public class Job {
     private Long maxSalary;
     private String location;
 
-//    @Version
+    @JsonIgnore // removes the recursive callbacks for the jobto company relationship it just prevents the recursive callbacks again and again
+    @ManyToOne
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+    //    @Version
 //    private Integer version;
 
     public Job() { // YOU NEED A DEFAULT CONSTRUCTOR WHEN WE WORK WITH ENTIT'S USING JPA OR H2
