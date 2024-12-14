@@ -1,9 +1,8 @@
 package com.priyanshu.firstJobApp.reviews;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.priyanshu.firstJobApp.company.Company;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -15,15 +14,17 @@ public class Review {
 
     private Long id;
     private String title;
-    private String date;  // for now just astring for testing purposes
-    private Long jobId;
+    private Double rating;  // for now just astring for testing purposes
     private String description;
 
-    public Review(Long id, String title, String date, Long jobId, String description) {
+    @JsonIgnore
+    @ManyToOne
+    private Company company;
+
+    public Review(Long id, String title, Double rating,String description) {
         this.id = id;
         this.title = title;
-        this.date = date;
-        this.jobId = jobId;
+        this.rating=rating;
         this.description = description;
     }
 
@@ -39,6 +40,14 @@ public class Review {
         this.id = id;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -47,22 +56,13 @@ public class Review {
         this.title = title;
     }
 
-    public String getDate() {
-        return date;
+    public Double getRating() {
+        return rating;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setRating(Double rating) {
+        this.rating= rating;
     }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
-    }
-
     public String getDescription() {
         return description;
     }
